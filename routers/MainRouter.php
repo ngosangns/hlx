@@ -16,6 +16,7 @@ class MainRouter
         $this->routes = new Routes();
         // assign routes
         $this->routes->get("/", "controllers/HomeController.php");
+        $this->routes->get("/login", "controllers/LoginController.php");
         // call controller
         $this->getController($path);
     }

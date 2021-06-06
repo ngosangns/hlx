@@ -1,6 +1,6 @@
 <?php
 namespace controllers;
-require("models/ObjectViewModel.php"); use models\ObjectViewModel;
+require_once "models/ObjectViewModel.php"; use models\ObjectViewModel;
 
 class BaseController {
     function getQueryObj() {
