@@ -1,38 +1,77 @@
 <?php
 
-class ViewSetup {
+class ViewSetup
+{
+    public $vm;
+    private ViewSetup | null $child;
+    private $head;
+    private $content;
+    private $foot;
 
-    protected $field = array();
-    
-    function __construct($vm, $child = null, $template = null) {
+    public function __construct($vm, ViewSetup | null $child)
+    {
         $this->vm = $vm;
         $this->child = $child;
-        $this->template = $template;
-    }
-    
-    function __get($name) {
-        if (isset($this->field[$name]))
-            return $this->field[$name];
-        else
-            return function() {
-                
-            };
     }
 
-    function __set($name, $value) {
-        $this->field[$name] = $value;
-    }
-    
-    function render() {
-        if($this->template !== null) {
-            echo "Hi";
-            $vm = $this->vm;
-            $template = $this->template;
-            $child = $this;
-            require_once($template);
+    public function getHead()
+    {
+        if (isset($this->head)) {
+            ($this->head)($this);
         } else {
-            ($this->content)($this);
+            return function () {
+            };
         }
     }
+
+    public function getContent()
+    {
+        if (isset($this->content)) {
+            ($this->content)($this);
+        } else {
+            return function () {
+            };
+        }
+    }
+
+    public function getFoot()
+    {
+        if (isset($this->foot)) {
+            ($this->foot)($this);
+        } else {
+            return function () {
+            };
+        }
+    }
+
+    public function setHead($func)
+    {
+        $this->head = $func;
+    }
+
+    public function setContent($func)
+    {
+        $this->content = $func;
+    }
+
+    public function setFoot($func)
+    {
+        $this->foot = $func;
+    }
+
+    public function getChild()
+    {
+        if ($this->child != null) {
+            return $this->child;
+        } else {
+            return new ViewSetup($this->vm, null);
+        }
+    }
+
+    public function render()
+    {
+        $this->getHead();
+        $this->getContent();
+        $this->getFoot();
+    }
 }
-?>

@@ -1,17 +1,11 @@
 <?php
-
-namespace routers;
-
-use controllers;
-use Exception;
-
 require("Routes.php");
 
 class MainRouter
 {
     protected $routes = null;
 
-    function __construct(String $path)
+    public function __construct(String $path)
     {
         $this->routes = new Routes();
         // assign routes
@@ -21,7 +15,7 @@ class MainRouter
         $this->getController($path);
     }
 
-    function explode(String $path)
+    public function explode(String $path)
     {
         $parts = explode("/", $path);
         $results = [];
@@ -33,14 +27,14 @@ class MainRouter
         return $results;
     }
 
-    function normalize(String $path)
+    public function normalize(String $path)
     {
         $parts = $this->explode($path);
         $path = "/" . (count($parts) > 0 ? join("/", $parts) : "");
         return $path;
     }
 
-    function getController(String $path)
+    public function getController(String $path)
     {
         $path = $this->normalize($path);
         // echo $this->routes->getRoutes()[0]->path;
@@ -58,8 +52,8 @@ class MainRouter
                         return;
                     }
                     $this->callController(
-                        $route->controller, 
-                        "controllers\\".$controllerName,
+                        $route->controller,
+                        $controllerName,
                         $path
                     );
                     return;
@@ -69,16 +63,18 @@ class MainRouter
         $this->callNotFoundController();
     }
 
-    function callController($controllerPath, $controllerName, $path = '/') {
+    public function callController($controllerPath, $controllerName, $path = '/')
+    {
         require($controllerPath);
         $refl = new \ReflectionClass($controllerName);
         $refl->newInstanceArgs(array($path));
     }
 
-    function callNotFoundController() {
+    public function callNotFoundController()
+    {
         $this->callController(
-            "controllers/NotFoundController.php", 
-            "controllers\NotFoundController"
+            "controllers/NotFoundController.php",
+            "NotFoundController"
         );
     }
 }

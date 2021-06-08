@@ -1,33 +1,38 @@
 <?php
-namespace routers;
-
-class Method {
+class Method
+{
     public $path;
     public $controller;
     public $method;
 
-    function __construct(String $path, String $controller, String $method) {
+    public function __construct(String $path, String $controller, String $method)
+    {
         $this->path = $path;
         $this->controller = $controller;
         $this->method = $method;
     }
 }
 
-class Routes {
+class Routes
+{
     private $routes = [];
 
-    function __construct() {}
+    public function __construct()
+    {
+    }
 
-    function get(String $path, String $controller) {
+    public function get(String $path, String $controller)
+    {
         $this->routes[] = new Method($path, $controller, "GET");
     }
 
-    function post(String $path, String $controller) {
+    public function post(String $path, String $controller)
+    {
         $this->routes[] = new Method($path, $controller, "post");
     }
 
-    function getRoutes() {
+    public function getRoutes()
+    {
         return $this->routes;
     }
 }
-?>

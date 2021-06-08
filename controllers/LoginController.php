@@ -1,17 +1,18 @@
 <?php
-namespace controllers;
 require("BaseController.php");
 
-class LoginController extends BaseController {
-    private $viewPath = "views/LoginView.php";
+class LoginController extends BaseController
+{
+    private $viewPath = "views/templates/LoginTemplate.php";
     
-    function __construct(String $path) {
-        if($path === "/") {
-            $this->getView(
-                ["title" => "Đăng nhập"],
-                $this->viewPath
-            );
+    public function __construct(String $path)
+    {
+        if ($path === "/") {
+            $vm = new ObjectViewModel(["title" => "Đăng nhập"]);
+            $view = require $this->viewPath;
+            $child = require "views/LoginView.php";
+            $view = $view($vm, $child($vm, null));
+            $view->render();
         }
     }
 }
-?>
