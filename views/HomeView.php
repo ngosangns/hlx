@@ -51,33 +51,37 @@ return function ($vm, $child) {
 <script src="https://unpkg.com/vueperslides"></script>
 <link href="https://unpkg.com/vueperslides/dist/vueperslides.css" rel="stylesheet">
 <script>
-    Vue.component("vueper-slides", vueperslides.VueperSlides);
+    Vue.component("vueper-slides", vueperslides.VueperSlides)
     Vue.component("vueper-slide", vueperslides.VueperSlide)
-    data['slides'] = [{
-        title: 'Slide #1',
-        content: 'Slide content 1.',
-        image: '/assets/images/1.jpg',
-    }, {
+    mixins.push({
+        data: () => ({
+            slides: [{
+                title: 'Slide #1',
+                content: 'Slide content 1.',
+                image: '/assets/images/1.jpg',
+            }, {
 
-        title: 'Slide #2',
-        content: 'Slide content 2.',
-        image: '/assets/images/2.jpg',
-    }, {
+                title: 'Slide #2',
+                content: 'Slide content 2.',
+                image: '/assets/images/2.jpg',
+            }, {
 
-        title: 'Slide #3',
-        content: 'Slide content 3.',
-        image: '/assets/images/3.jpg',
-    }, {
+                title: 'Slide #3',
+                content: 'Slide content 3.',
+                image: '/assets/images/3.jpg',
+            }, {
 
-        title: 'Slide #4',
-        content: 'Slide content 4.',
-        image: '/assets/images/4.jpg',
-    }, {
+                title: 'Slide #4',
+                content: 'Slide content 4.',
+                image: '/assets/images/4.jpg',
+            }, {
 
-        title: 'Slide #5',
-        content: 'Slide content 5.',
-        image: '/assets/images/5.jpg',
-    }, ]
+                title: 'Slide #5',
+                content: 'Slide content 5.',
+                image: '/assets/images/5.jpg',
+            }]
+        })
+    })
 </script>
 <style>
     .vueperslides__track a {

@@ -13,11 +13,6 @@ class HomeController extends BaseController
             $child = require "views/HomeView.php";
             $view = $view($vm, $child($vm, null));
             $view->render();
-        } elseif ($path === "/test") {
-            $vm = new ObjectViewModel();
-            $view = require "views/TestView.php";
-            $view = $view($vm, null);
-            $view->render();
         }
     }
 }

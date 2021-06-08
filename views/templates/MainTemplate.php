@@ -143,10 +143,9 @@ return function ($vm, $child) {
         </div>
 
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue"></script>
     <script src="https://unpkg.com/vue-material"></script>
     <script>
-        let data = {}
         Vue.use(VueMaterial.default)
 
         // change single option
@@ -161,13 +160,15 @@ return function ($vm, $child) {
                 firstDayOfAWeek: 1
             }
         }
+
+        const mixins = []
     </script>
     <?php $view->getChild()->getFoot() ?>
     <script>
         new Vue({
             el: '#app',
+            mixins,
             data: () => ({
-                ...data,
                 menuVisible: false,
                 loadingState: true,
             }),

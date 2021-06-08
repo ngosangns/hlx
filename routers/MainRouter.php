@@ -37,7 +37,6 @@ class MainRouter
     public function getController(String $path)
     {
         $path = $this->normalize($path);
-        // echo $this->routes->getRoutes()[0]->path;
         foreach ($this->routes->getRoutes() as $route) {
             if (str_starts_with($route->path, $path)) { // check path
                 if ($_SERVER['REQUEST_METHOD'] === $route->method) { // check method

@@ -91,22 +91,9 @@ return function ($vm, $child) {
             </div>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue"></script>
     <script src="https://unpkg.com/vue-material"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vuelidate@0.7.6/dist/vuelidate.min.js"
-        integrity="sha256-4wHDIs7DYJ0xz+FlWjIu4kPe2jFk+KAg+JH4vgi9WRs=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vuelidate@0.7.6/dist/validators.min.js"
-        integrity="sha256-Bm9w6Cif2Vx+HnSoGdKn3/mgtowQA5eACGYIh5QaUvQ=" crossorigin="anonymous"></script>
     <script>
-        Vue.use(window.vuelidate.default)
-        var validationMixin = window.vuelidate.validationMixin
-        const {
-            required,
-            email,
-            minLength,
-            maxLength
-        } = window.validators
-
         Vue.use(VueMaterial.default)
 
         // change single option
@@ -121,92 +108,24 @@ return function ($vm, $child) {
                 firstDayOfAWeek: 1
             }
         }
-        let data = {
-            loadingState: true,
-        }
+
+        const mixins = []
     </script>
     <?php $view->getChild()->getFoot() ?>
     <script>
         new Vue({
             el: '#app',
-            mixins: [validationMixin],
+            mixins,
             data: () => ({
+                menuVisible: false,
                 loadingState: true,
-                form: {
-                    firstName: null,
-                    lastName: null,
-                    gender: null,
-                    age: null,
-                    email: null,
-                },
-                userSaved: false,
-                sending: false,
-                lastUser: null
             }),
-            validations: {
-                form: {
-                    firstName: {
-                        required,
-                        minLength: minLength(3)
-                    },
-                    lastName: {
-                        required,
-                        minLength: minLength(3)
-                    },
-                    age: {
-                        required,
-                        maxLength: maxLength(3)
-                    },
-                    gender: {
-                        required
-                    },
-                    email: {
-                        required,
-                        email
-                    }
-                }
-            },
             mounted: function() {
                 this.offLoading() //method1 will execute at pageload
             },
             methods: {
                 offLoading: function() {
                     this.loadingState = false;
-                },
-                getValidationClass(fieldName) {
-                    const field = this.$v.form[fieldName]
-
-                    if (field) {
-                        return {
-                            'md-invalid': field.$invalid && field.$dirty
-                        }
-                    }
-                },
-                clearForm() {
-                    this.$v.$reset()
-                    this.form.firstName = null
-                    this.form.lastName = null
-                    this.form.age = null
-                    this.form.gender = null
-                    this.form.email = null
-                },
-                saveUser() {
-                    this.sending = true
-
-                    // Instead of this timeout, here you can call your API
-                    window.setTimeout(() => {
-                        this.lastUser = `${this.form.firstName} ${this.form.lastName}`
-                        this.userSaved = true
-                        this.sending = false
-                        this.clearForm()
-                    }, 1500)
-                },
-                validateUser() {
-                    this.$v.$touch()
-
-                    if (!this.$v.$invalid) {
-                        this.saveUser()
-                    }
                 }
             },
         })
@@ -226,33 +145,6 @@ return function ($vm, $child) {
             display: flex;
             align-items: center;
             justify-content: center;
-        }
-
-        /*Search box*/
-        #search-box {
-            padding-left: 1rem;
-        }
-
-        #search-box .md-field {
-            color: white;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            align-items: center;
-        }
-
-        #search-box .md-field input,
-        #search-box .md-field input::placeholder {
-            color: white;
-            -webkit-text-fill-color: white;
-        }
-
-        #search-box .md-field:before {
-            background-color: white;
-        }
-
-        #search-box .md-field:after {
-            display: none;
         }
     </style>
 </body>
