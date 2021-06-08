@@ -78,9 +78,11 @@ return function ($vm, $child) {
                                 <md-icon>menu</md-icon>
                             </md-button>
                             <span class="md-title">
-                                <md-avatar style="margin-right: .5rem">
-                                    <img src="/favicon.ico" alt="Avatar">
-                                </md-avatar>
+                                <a href="/">
+                                    <md-avatar style="margin-right: .5rem">
+                                        <img src="/favicon.ico" alt="Avatar">
+                                    </md-avatar>
+                                </a>
                             </span>
                             <div id="search-box" class="md-toolbar-section-end">
                                 <md-field>
@@ -89,11 +91,32 @@ return function ($vm, $child) {
                                 <md-button class="md-raised">Tìm kiếm</md-button>
                             </div>
                             <div class="md-toolbar-section-end">
-                                <a href="/login">
-                                    <md-button>
+                                <md-menu md-align-trigger>
+                                    <md-button md-menu-trigger>
+                                        Admin
                                         <md-icon>account_circle</md-icon>
                                     </md-button>
-                                </a>
+                                    <md-menu-content>
+                                        <md-menu-item>
+                                            <a href="/profile">
+                                                <md-icon>account_box</md-icon>
+                                                Profile
+                                            </a>
+                                        </md-menu-item>
+                                        <md-menu-item>
+                                            <a href="/register">
+                                                <md-icon>app_registration</md-icon>
+                                                Đăng ký
+                                            </a>
+                                        </md-menu-item>
+                                        <md-menu-item>
+                                            <a href="/login">
+                                                <md-icon>input</md-icon>
+                                                Đăng nhập
+                                            </a>
+                                        </md-menu-item>
+                                    </md-menu-content>
+                                </md-menu>
                             </div>
                         </div>
                         <div class="md-toolbar-row" style="min-height: auto!important">
@@ -218,6 +241,11 @@ return function ($vm, $child) {
 
         #search-box .md-field:after {
             display: none;
+        }
+
+        .md-menu-content .md-menu-item a {
+            text-decoration: none;
+            color: black;
         }
     </style>
 </body>

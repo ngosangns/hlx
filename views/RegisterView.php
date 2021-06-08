@@ -5,7 +5,7 @@ return function ($vm, $child) {
 <form id="login-form" novalidate class="md-layout" @submit.prevent="validateUser">
     <md-card class="md-layout-item md-size-50 md-small-size-100">
         <md-card-header>
-            <div class="md-title">Đăng nhập</div>
+            <div class="md-title">Đăng ký</div>
         </md-card-header>
 
         <md-card-content>
@@ -25,16 +25,27 @@ return function ($vm, $child) {
                 <span class="md-error" v-if="!$v.form.password.required">Mật khẩu là bắt
                     buộc</span>
             </md-field>
+            <md-field :class="getValidationClass('repassword')">
+                <label for="repassword">Nhập lại mật khẩu</label>
+                <md-input type="password" name="repassword" id="repassword" autocomplete="repassword"
+                    v-model="form.repassword" :disabled="sending"></md-input>
+                <span class="md-error" v-if="!$v.form.repassword.required">Nhập lại mật khẩu là bắt
+                    buộc</span>
+                <span class="md-error" v-else-if="!$v.form.repassword.sameAsPassword">Trường mật khẩu không trùng
+                    khớp</span>
+            </md-field>
         </md-card-content>
         <md-card-actions style="justify-content: center; padding: 1rem">
             <span class="md-body-1" style="width: 100%">
-                Chưa có tài khoản?
-                <a href="/register">Đăng ký</a>
+                Đã có tài khoản?
+                <a href="/login">Đăng nhập</a>
             </span>
-            <md-button type="submit" class="md-primary" :disabled="sending">Đăng nhập</md-button>
+            <md-button type="submit" class="md-primary" :disabled="sending">Đăng ký</md-button>
         </md-card-actions>
+
         <md-progress-bar md-mode="indeterminate" v-if="sending" />
     </md-card>
+
 
     <md-snackbar :md-active.sync="login">Đăng nhập thành công</md-snackbar>
 </form><?php
@@ -49,7 +60,8 @@ return function ($vm, $child) {
         required,
         email,
         minLength,
-        maxLength
+        maxLength,
+        sameAs
     } = window.validators
 
     mixins.push({
@@ -59,6 +71,7 @@ return function ($vm, $child) {
             form: {
                 email: null,
                 password: null,
+                repassword: null,
             },
             login: false,
             sending: false,
@@ -72,6 +85,12 @@ return function ($vm, $child) {
                 },
                 password: {
                     required
+                },
+                repassword: {
+                    required,
+                    sameAsPassword: sameAs(function() {
+                        return this.form.password
+                    })
                 }
             }
         },
