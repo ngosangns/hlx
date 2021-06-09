@@ -48,8 +48,8 @@ return function ($vm, $child) {
     });
     $view->setFoot(function ($view) {
         ?>
-<script src="https://unpkg.com/vueperslides"></script>
-<link href="https://unpkg.com/vueperslides/dist/vueperslides.css" rel="stylesheet">
+<script src="/assets/js/vueperslides.umd.min.js"></script>
+<link href="/assets/css/vueperslides.css" rel="stylesheet">
 <script>
     Vue.component("vueper-slides", vueperslides.VueperSlides)
     Vue.component("vueper-slide", vueperslides.VueperSlide)

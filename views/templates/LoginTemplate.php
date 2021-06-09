@@ -16,8 +16,8 @@ return function ($vm, $child) {
 
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic|Material+Icons">
-    <link rel="stylesheet" href="https://unpkg.com/vue-material/dist/vue-material.min.css">
-    <link rel="stylesheet" href="https://unpkg.com/vue-material/dist/theme/default.css">
+    <link rel="stylesheet" href="/assets/css/vue-material.min.css">
+    <link rel="stylesheet" href="/assets/css/default.css">
     <style>
         #loading {
             width: 100vw;
@@ -91,8 +91,8 @@ return function ($vm, $child) {
             </div>
         </div>
     </div>
-    <script src="https://unpkg.com/vue"></script>
-    <script src="https://unpkg.com/vue-material"></script>
+    <script src="/assets/js/vue.js"></script>
+    <script src="/assets/js/vue-material.min.js"></script>
     <script>
         Vue.use(VueMaterial.default)
 

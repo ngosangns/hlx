@@ -2,8 +2,8 @@
 return function ($vm, $child) {
     $view = new ViewSetup($vm, $child);
     $view->setContent(function ($view) {?>
-<div class="md-layout md-gutter">
-    <div class="md-layout-item md-medium-size-25 md-small-size-100">
+<div class="md-layout" style="max-width: 1920px">
+    <div class="md-layout-item md-large-size-25 md-small-size-100" style="max-width: calc(1920px / 4)">
         <div style="padding: .5rem; 
                     display: flex; 
                     flex-direction: column;
@@ -13,29 +13,46 @@ return function ($vm, $child) {
                 background-image: url(/assets/images/1.jpg);
                 background-position: center center;
                 background-size: cover;
-                width: 80%;
-                padding-top: 80%;
+                width: 85%;
+                padding-top: 85%;
                 border-radius: 50%;
             "></div><br>
-            <span class="md-display-1">Admin</span>
+            <a href="/profile"><span class="md-headline">Admin</span></a>
+            <a href="/profile/update-info" style="display: block; width: 100%; text-align: center">
+                <md-button style="width: 85%"
+                    class="md-raised <?= $view->vm->tab === "update-info" ? "md-primary" : "" ?>">
+                    Cập nhật thông tin
+                </md-button>
+            </a>
+            <br>
+            <div style="width: 85%">
+                <span style="">
+                    <md-icon>badge</md-icon>
+                    <span style="display: inline-block; height: 100%; vertical-align: middle;">
+                        Nguyễn Văn A</span>
+                </span><br>
+                <span>
+                    <md-icon>email</md-icon>
+                    <span style="display: inline-block; height: 100%; vertical-align: middle;">
+                        admin@localhost</span>
+                </span><br><br>
+                <md-divider></md-divider>
+            </div>
         </div>
     </div>
     <div class="md-layout-item">
-        <md-tabs>
-            <md-tab id="tab-home" md-label="Thông tin chung" exact></md-tab>
-            <md-tab id="tab-manga" md-label="Upload truyện">
-                <md-list>
-                    <md-list-item>Go to Subpage 1</md-list-item>
-                    <md-list-item>Go to Subpage 2</md-list-item>
-                </md-list>
-            </md-tab>
-            <md-tab id="tab-info" md-label="Cập nhật thông tin"></md-tab>
-            <md-tab id="tab-favorites" md-label="Bộ sưu tập"></md-tab>
+        <md-tabs md-active-tab="<?= $view->vm->tab ?>">
+            <md-tab id="info" md-label="Tường" md-icon="call_to_action" href="/profile"></md-tab>
+            <md-tab id="upload-manga" md-label="Upload truyện" md-icon="book" href="/profile/upload-manga"></md-tab>
         </md-tabs>
+        <md-divider></md-divider><br>
+        <div id="profile-content">
+            <?php $view->getChild()->getContent(); ?>
+        </div>
     </div>
 </div><?php
     });
-    $view->setFoot(function () {?>
+    $view->setFoot(function ($view) {?>
 <script>
     mixins.push({
         name: 'PersistentMini',
@@ -49,6 +66,7 @@ return function ($vm, $child) {
         }
     })
 </script><?php
+        $view->getChild()->getFoot();
     });
     return $view;
 };

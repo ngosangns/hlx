@@ -15,8 +15,8 @@ return function ($vm, $child) {
 
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic|Material+Icons">
-    <link rel="stylesheet" href="https://unpkg.com/vue-material/dist/vue-material.min.css">
-    <link rel="stylesheet" href="https://unpkg.com/vue-material/dist/theme/default.css">
+    <link rel="stylesheet" href="/assets/css/vue-material.min.css">
+    <link rel="stylesheet" href="/assets/css/default.css">
     <style>
         #loading {
             width: 100vw;
@@ -120,41 +120,31 @@ return function ($vm, $child) {
                             </div>
                         </div>
                         <div class="md-toolbar-row" style="min-height: auto!important">
-                            <md-menu>
-                                <md-button>Trang chủ</md-button>
-                            </md-menu>
-                            <md-menu>
-                                <md-button>Liên hệ</md-button>
-                            </md-menu>
-                            <md-menu>
-                                <md-button>Tìm kiếm nâng cao</md-button>
-                            </md-menu>
+                            <a href="/">
+                                <md-menu>
+                                    <md-button>Trang chủ</md-button>
+                                </md-menu>
+                            </a>
+                            <a href="/">
+                                <md-menu>
+                                    <md-button>Liên hệ</md-button>
+                                </md-menu>
+                            </a>
+                            <a href="/advanced-search">
+                                <md-menu>
+                                    <md-button>Tìm kiếm nâng cao</md-button>
+                                </md-menu>
+                            </a>
                         </div>
                     </md-app-toolbar>
                     <md-app-drawer :md-active.sync="menuVisible">
-                        <md-toolbar class="md-transparent" md-elevation="0">Navigation</md-toolbar>
-
-                        <md-list>
-                            <md-list-item>
-                                <md-icon>move_to_inbox</md-icon>
-                                <span class="md-list-item-text">Inbox</span>
-                            </md-list-item>
-
-                            <md-list-item>
-                                <md-icon>send</md-icon>
-                                <span class="md-list-item-text">Sent Mail</span>
-                            </md-list-item>
-
-                            <md-list-item>
-                                <md-icon>delete</md-icon>
-                                <span class="md-list-item-text">Trash</span>
-                            </md-list-item>
-
-                            <md-list-item>
-                                <md-icon>error</md-icon>
-                                <span class="md-list-item-text">Spam</span>
-                            </md-list-item>
-                        </md-list>
+                        <md-toolbar class="md-transparent" md-elevation="0">Chuyên mục</md-toolbar>
+                        <div>
+                            <md-button>Bạo râm</md-button>
+                            <md-button>Kiếm hịp</md-button>
+                            <md-button>Truck-kun</md-button>
+                            <md-button>Waifu</md-button>
+                        </div>
                     </md-app-drawer>
 
                     <md-app-content>
@@ -166,8 +156,8 @@ return function ($vm, $child) {
         </div>
 
     </div>
-    <script src="https://unpkg.com/vue"></script>
-    <script src="https://unpkg.com/vue-material"></script>
+    <script src="/assets/js/vue.js"></script>
+    <script src="/assets/js/vue-material.min.js"></script>
     <script>
         Vue.use(VueMaterial.default)
 

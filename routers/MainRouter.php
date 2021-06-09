@@ -13,6 +13,7 @@ class MainRouter
         $this->routes->get("/login", "controllers/LoginController.php");
         $this->routes->get("/register", "controllers/RegisterController.php");
         $this->routes->get("/profile", "controllers/ProfileController.php");
+        $this->routes->get("/advanced-search", "controllers/AdvanSearchController.php");
         // call controller
         $this->getController($path);
     }
@@ -40,11 +41,19 @@ class MainRouter
     {
         $path = $this->normalize($path);
         foreach ($this->routes->getRoutes() as $route) {
-            if (str_starts_with($route->path, $path)) { // check path
+            if (str_starts_with($path, $route->path)) { // check path
+                // check homepage
+                if ($route->path == "/" && strlen($path) > 1) {
+                    continue;
+                }
                 if ($_SERVER['REQUEST_METHOD'] === $route->method) { // check method
                     try {
                         // get controller name
-                        $path = "/".substr($path, strlen($route->path));
+                        $path = substr($path, strlen($route->path));
+                        // check empty path
+                        if (strlen($path) === 0) {
+                            $path = "/".$path;
+                        }
                         $controllerName = $this->explode($route->controller);
                         $controllerName = end($controllerName);
                         $controllerName = preg_replace("/.php/", "", $controllerName);

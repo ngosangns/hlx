@@ -51,8 +51,8 @@ return function ($vm, $child) {
 </form><?php
     });
     $view->setFoot(function ($view) {?>
-<script src="https://unpkg.com/vuelidate/dist/vuelidate.min.js"></script>
-<script src="https://unpkg.com/vuelidate/dist/validators.min.js"></script>
+<script src="/assets/js/vuelidate.min.js"></script>
+<script src="/assets/js/validators.min.js"></script>
 <script>
     Vue.use(window.vuelidate.default)
     var validationMixin = window.vuelidate.validationMixin
