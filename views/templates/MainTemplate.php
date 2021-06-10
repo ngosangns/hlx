@@ -72,7 +72,7 @@ return function ($vm, $child) {
         <div class="md-layout">
             <div class="md-layout-item">
                 <md-app md-mode="fixed" id="wrapper">
-                    <md-app-toolbar class="md-primary">
+                    <md-app-toolbar class="md-primary" style="max-width: 1920px; margin: auto">
                         <div class="md-toolbar-row">
                             <md-button class="md-icon-button" @click="menuVisible = !menuVisible">
                                 <md-icon>menu</md-icon>
@@ -84,14 +84,14 @@ return function ($vm, $child) {
                                     </md-avatar>
                                 </a>
                             </span>
-                            <div id="search-box" class="md-toolbar-section-end">
+                            <!-- <div id="search-box">
                                 <md-field>
                                     <md-input placeholder="Tìm truyện..."></md-input>
                                 </md-field>
                                 <md-button class="md-raised">Tìm kiếm</md-button>
-                            </div>
+                            </div> -->
                             <div class="md-toolbar-section-end">
-                                <md-menu md-align-trigger>
+                                <md-menu>
                                     <md-button md-menu-trigger>
                                         Admin
                                         <md-icon>account_circle</md-icon>
@@ -120,24 +120,16 @@ return function ($vm, $child) {
                             </div>
                         </div>
                         <div class="md-toolbar-row" style="min-height: auto!important">
-                            <a href="/">
-                                <md-menu>
-                                    <md-button>Trang chủ</md-button>
-                                </md-menu>
-                            </a>
-                            <a href="/">
-                                <md-menu>
-                                    <md-button>Liên hệ</md-button>
-                                </md-menu>
-                            </a>
-                            <a href="/advanced-search">
-                                <md-menu>
-                                    <md-button>Tìm kiếm nâng cao</md-button>
-                                </md-menu>
-                            </a>
+                            <div id="menu" class="md-scrollbar">
+                                <a v-for="item in menu" :href="item.link">
+                                    <md-menu>
+                                        <md-button>{{item.label}}</md-button>
+                                    </md-menu>
+                                </a>
+                            </div>
                         </div>
                     </md-app-toolbar>
-                    <md-app-drawer :md-active.sync="menuVisible">
+                    <md-app-drawer :md-active.sync="menuVisible" md-swipeable>
                         <md-toolbar class="md-transparent" md-elevation="0">Chuyên mục</md-toolbar>
                         <div>
                             <md-button>Bạo râm</md-button>
@@ -146,12 +138,10 @@ return function ($vm, $child) {
                             <md-button>Waifu</md-button>
                         </div>
                     </md-app-drawer>
-
                     <md-app-content>
                         <?php $view->getChild()->getContent() ?>
                     </md-app-content>
                 </md-app>
-
             </div>
         </div>
 
@@ -184,6 +174,19 @@ return function ($vm, $child) {
             data: () => ({
                 menuVisible: false,
                 loadingState: true,
+                menu: [{
+                        label: "Trang chủ",
+                        link: "/",
+                    },
+                    {
+                        label: "Liên hệ",
+                        link: "/",
+                    },
+                    {
+                        label: "Tìm kiếm nâng cao",
+                        link: "/advanced-search",
+                    },
+                ],
             }),
             mounted: function() {
                 this.offLoading() //method1 will execute at pageload
@@ -209,6 +212,8 @@ return function ($vm, $child) {
         /*Search box*/
         #search-box {
             padding-left: 1rem;
+            display: flex;
+            flex-direction: row;
         }
 
         #search-box .md-field {

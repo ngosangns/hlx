@@ -93,11 +93,13 @@ return function ($vm, $child) {
 <style>
     #search-form {
         width: 100%;
-        max-width: 70rem;
-        margin: auto;
         display: flex;
         align-items: center;
         justify-content: center;
+    }
+
+    #search-form>.md-card {
+        margin: 0;
     }
 
     .form-error-message {

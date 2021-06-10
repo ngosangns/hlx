@@ -18,55 +18,35 @@ class MainRouter
         $this->getController($path);
     }
 
-    public function explode(String $path)
-    {
-        $parts = explode("/", $path);
-        $results = [];
-        foreach ($parts as $part) {
-            if (strlen($part) > 0) {
-                $results[] = $part;
-            }
-        }
-        return $results;
-    }
-
-    public function normalize(String $path)
-    {
-        $parts = $this->explode($path);
-        $path = "/" . (count($parts) > 0 ? join("/", $parts) : "");
-        return $path;
-    }
-
     public function getController(String $path)
     {
-        $path = $this->normalize($path);
-        foreach ($this->routes->getRoutes() as $route) {
-            if (str_starts_with($path, $route->path)) { // check path
-                // check homepage
-                if ($route->path == "/" && strlen($path) > 1) {
-                    continue;
-                }
-                if ($_SERVER['REQUEST_METHOD'] === $route->method) { // check method
-                    try {
-                        // get controller name
-                        $path = substr($path, strlen($route->path));
-                        // check empty path
-                        if (strlen($path) === 0) {
-                            $path = "/".$path;
+        $path = normalizePath($path);
+        if (checkCharacterPath($path)) {
+            foreach ($this->routes->getRoutes() as $route) {
+                if (str_starts_with($path, $route->path)) { // check path
+                    // check homepage
+                    if ($route->path == "/" && strlen($path) > 1) {
+                        continue;
+                    } elseif (strlen($path) > strlen($route->path) && $path[strlen($route->path)] != "/") {
+                        continue;
+                    }
+                    if ($_SERVER['REQUEST_METHOD'] === $route->method) { // check method
+                        try {
+                            $path = getSubPath($path, $route->path);
+                            $controllerName = explodePath($route->controller);
+                            $controllerName = end($controllerName);
+                            $controllerName = preg_replace("/.php/", "", $controllerName);
+                        } catch (Exception $e) {
+                            $this->callNotFoundController();
+                            return;
                         }
-                        $controllerName = $this->explode($route->controller);
-                        $controllerName = end($controllerName);
-                        $controllerName = preg_replace("/.php/", "", $controllerName);
-                    } catch (Exception $e) {
-                        $this->callNotFoundController();
+                        $this->callController(
+                            $route->controller,
+                            $controllerName,
+                            $path
+                        );
                         return;
                     }
-                    $this->callController(
-                        $route->controller,
-                        $controllerName,
-                        $path
-                    );
-                    return;
                 }
             }
         }

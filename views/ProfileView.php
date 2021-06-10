@@ -2,8 +2,9 @@
 return function ($vm, $child) {
     $view = new ViewSetup($vm, $child);
     $view->setContent(function ($view) {?>
-<div class="md-layout" style="max-width: 1920px">
-    <div class="md-layout-item md-large-size-25 md-small-size-100" style="max-width: calc(1920px / 4)">
+<div class="md-layout" style="max-width: 1920px; margin: auto">
+    <div class="md-layout-item md-large-size-25 md-xsmall-size-100"
+        style="max-width: calc(1920px / 4); min-width: 15rem;">
         <div style="padding: .5rem; 
                     display: flex; 
                     flex-direction: column;
@@ -19,7 +20,7 @@ return function ($vm, $child) {
             "></div><br>
             <a href="/profile"><span class="md-headline">Admin</span></a>
             <a href="/profile/update-info" style="display: block; width: 100%; text-align: center">
-                <md-button style="width: 85%"
+                <md-button style="width: 85%" :md-ripple="false"
                     class="md-raised <?= $view->vm->tab === "update-info" ? "md-primary" : "" ?>">
                     Cập nhật thông tin
                 </md-button>
@@ -41,7 +42,8 @@ return function ($vm, $child) {
         </div>
     </div>
     <div class="md-layout-item">
-        <md-tabs md-active-tab="<?= $view->vm->tab ?>">
+        <md-tabs id="tabs" md-active-tab="<?= $view->vm->tab ?>"
+            class="md-no-animation">
             <md-tab id="info" md-label="Tường" md-icon="call_to_action" href="/profile"></md-tab>
             <md-tab id="upload-manga" md-label="Upload truyện" md-icon="book" href="/profile/upload-manga"></md-tab>
         </md-tabs>
@@ -65,7 +67,13 @@ return function ($vm, $child) {
             }
         }
     })
-</script><?php
+</script>
+<style>
+    .md-no-animation,
+    .md-no-animation * {
+        transition: none !important;
+    }
+</style><?php
         $view->getChild()->getFoot();
     });
     return $view;

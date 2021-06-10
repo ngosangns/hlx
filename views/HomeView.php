@@ -3,12 +3,12 @@ return function ($vm, $child) {
     $view = new ViewSetup($vm, $child);
     $view->setContent(function ($view) {
         ?>
-<vueper-slides :visible-slides="5" :touchable="false" class="no-shadow">
+<vueper-slides :visible-slides="5" :touchable="false" class="no-shadow" style="max-width: 1920px; margin: auto">
     <vueper-slide v-for="(slide, i) in slides" :key="i" :title="slide.title" :content="slide.content" link="/"
         :image="slide.image" />
 </vueper-slides>
-<div id="home-content" class="md-layout md-gutter" style="margin-top: 2rem">
-    <div class="md-layout-item md-medium-size-75">
+<div id="home-content" class="md-layout" style="max-width: 1920px; margin: auto; margin-top: 2rem;">
+    <div class="md-layout-item md-large-size-75 md-xlarge-size-75 md-xsmall-size-100">
         <md-card>
             <md-card-content>
                 <md-tabs>
@@ -34,14 +34,8 @@ return function ($vm, $child) {
             </md-card-content>
         </md-card>
     </div>
-    <div class="md-layout-item md-medium-size-25 md-xsmall-size-100">
-        <md-card>
-            <md-card-header>
-                <div class="md-title">Bình luận mới nhất</div>
-            </md-card-header>
-            <md-card-content>
-            </md-card-content>
-        </md-card>
+    <div id="right-panel" class="md-layout-item">
+        <div class="md-headline">Bình luận mới nhất</div>
     </div>
 </div>
 <?php
@@ -94,8 +88,16 @@ return function ($vm, $child) {
         justify-content: flex-end !important;
     }
 
+    #home-content>div {
+        margin-bottom: 1rem;
+    }
+
     #home-content .md-card {
         margin: 0;
+    }
+
+    #right-panel {
+        padding-left: 1rem;
     }
 </style>
 <?php

@@ -11,4 +11,9 @@ class BaseController
         $queries = (object) $queries;
         return $queries;
     }
+
+    public static function getNotFoundView()
+    {
+        echo "Not found - 404";
+    }
 }

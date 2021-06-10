@@ -33,10 +33,10 @@ return function ($vm, $child) {
             </span>
             <md-button type="submit" class="md-primary" :disabled="sending">Đăng nhập</md-button>
         </md-card-actions>
+        <md-snackbar :md-active.sync="login">Đăng nhập thành công</md-snackbar>
         <md-progress-bar md-mode="indeterminate" v-if="sending" />
     </md-card>
 
-    <md-snackbar :md-active.sync="login">Đăng nhập thành công</md-snackbar>
 </form><?php
     });
     $view->setFoot(function ($view) { ?>
@@ -96,6 +96,7 @@ return function ($vm, $child) {
                     this.lastUser = `${this.form.firstName} ${this.form.lastName}`
                     this.userSaved = true
                     this.sending = false
+                    this.login = !this.login
                     this.clearForm()
                 }, 1500)
             },
@@ -111,11 +112,13 @@ return function ($vm, $child) {
 <style>
     #login-form {
         width: 100%;
-        max-width: 50rem;
-        margin: auto;
         display: flex;
         align-items: center;
         justify-content: center;
+    }
+
+    #login-form>.md-card {
+        margin: 0;
     }
 
     .form-error-message {
