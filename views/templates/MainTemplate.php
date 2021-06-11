@@ -71,8 +71,9 @@ return function ($vm, $child) {
         </div>
         <div class="md-layout">
             <div class="md-layout-item">
-                <md-app md-mode="fixed" id="wrapper">
-                    <md-app-toolbar class="md-primary" style="max-width: 1920px; margin: auto">
+                <md-app id="wrapper">
+                    <md-app-toolbar id="app-toolbar" class="md-primary"
+                        style="max-width: 1920px; margin: auto; z-index: 99">
                         <div class="md-toolbar-row">
                             <md-button class="md-icon-button" @click="menuVisible = !menuVisible">
                                 <md-icon>menu</md-icon>
@@ -84,12 +85,12 @@ return function ($vm, $child) {
                                     </md-avatar>
                                 </a>
                             </span>
-                            <!-- <div id="search-box">
+                            <div id="search-box" class="search-box">
                                 <md-field>
                                     <md-input placeholder="Tìm truyện..."></md-input>
                                 </md-field>
                                 <md-button class="md-raised">Tìm kiếm</md-button>
-                            </div> -->
+                            </div>
                             <div class="md-toolbar-section-end">
                                 <md-menu>
                                     <md-button md-menu-trigger>
@@ -117,6 +118,14 @@ return function ($vm, $child) {
                                         </md-menu-item>
                                     </md-menu-content>
                                 </md-menu>
+                            </div>
+                        </div>
+                        <div id="m-search-box" class="md-toolbar-row">
+                            <div class="search-box">
+                                <md-field>
+                                    <md-input placeholder="Tìm truyện..."></md-input>
+                                </md-field>
+                                <md-button class="md-raised">Tìm kiếm</md-button>
                             </div>
                         </div>
                         <div class="md-toolbar-row" style="min-height: auto!important">
@@ -209,33 +218,56 @@ return function ($vm, $child) {
             overflow-y: hidden;
         }
 
+        #wrapper .md-app-toolbar {
+            min-height: auto !important;
+        }
+
+        /* #wrapper .md-app-scroller {
+            margin-top: 7.5rem !important;
+        } */
+
         /*Search box*/
-        #search-box {
+        .search-box {
             padding-left: 1rem;
             display: flex;
             flex-direction: row;
+            margin: auto;
         }
 
-        #search-box .md-field {
-            color: white;
+        .search-box .md-field {
+            color: white !important;
             margin: 0;
             padding: 0;
             display: flex;
             align-items: center;
         }
 
-        #search-box .md-field input,
-        #search-box .md-field input::placeholder {
-            color: white;
-            -webkit-text-fill-color: white;
+        .search-box .md-field input,
+        .search-box .md-field input::placeholder {
+            color: white !important;
+            -webkit-text-fill-color: white !important;
         }
 
-        #search-box .md-field:before {
-            background-color: white;
+        .search-box .md-field:before {
+            background-color: white !important;
         }
 
-        #search-box .md-field:after {
+        .search-box .md-field:after {
             display: none;
+        }
+
+        #m-search-box {
+            display: none;
+        }
+
+        @media only screen and (max-width: 559px) {
+            #m-search-box {
+                display: block;
+            }
+
+            #search-box {
+                display: none;
+            }
         }
 
         .md-menu-content .md-menu-item a {
