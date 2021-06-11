@@ -195,6 +195,10 @@ return function ($vm, $child) {
                         label: "Tìm kiếm nâng cao",
                         link: "/advanced-search",
                     },
+                    {
+                        label: "Truyện",
+                        link: "/manga",
+                    },
                 ],
             }),
             mounted: function() {

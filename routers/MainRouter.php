@@ -14,6 +14,7 @@ class MainRouter
         $this->routes->get("/register", "controllers/RegisterController.php");
         $this->routes->get("/profile", "controllers/ProfileController.php");
         $this->routes->get("/advanced-search", "controllers/AdvanSearchController.php");
+        $this->routes->get("/manga", "controllers/MangaController.php");
         // call controller
         $this->getController($path);
     }

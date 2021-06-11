@@ -1,2 +1,2 @@
 # hlx
-HLX MVVM
+Front-end material design web. Testing MVVM design pattern.
